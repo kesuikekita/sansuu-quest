@@ -4,427 +4,224 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SANSUU QUEST</title>
-<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;SANSUU QUEST&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#1a1a2e&quot;}">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
-body{
-  font-family:'Nunito','Hiragino Kaku Gothic ProN',sans-serif;
-  background:#1a1a2e;
-  color:#fff;
-  min-height:100vh;
-}
+body{font-family:'Nunito','Hiragino Kaku Gothic ProN',sans-serif;background:#1a1a2e;color:#fff;min-height:100vh;}
 .app{max-width:420px;margin:0 auto;padding-bottom:90px;}
 
-/* ===== HEADER ===== */
-.hdr{
-  background:#252849;
-  border-bottom:4px solid #1a1c38;
-  padding:12px 14px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:30;
-}
-.hdr-logo{
-  font-size:18px;font-weight:900;
-  color:#fff;
-  text-shadow:3px 3px 0 #1a1c38;
-  letter-spacing:1px;
-}
-.hdr-logo span{color:#ff6b35;}
-.hdr-pills{display:flex;gap:6px;align-items:center;}
-.streak-pill{
-  background:#ffd700;
-  border:3px solid #b8a000;
-  border-radius:8px;
-  padding:4px 10px;
-  font-size:13px;font-weight:900;
-  color:#1a1a2e;
-}
-.coins-pill{
-  background:#ff6b35;
-  border:3px solid #c94f20;
-  border-radius:8px;
-  padding:4px 10px;
-  font-size:13px;font-weight:900;
-  color:#fff;
-  text-shadow:1px 1px 0 #c94f20;
-  display:flex;align-items:center;gap:5px;
-}
+#titleScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
+.title-logo{font-size:32px;font-weight:900;color:#fff;text-shadow:4px 4px 0 #1a1c38;letter-spacing:2px;margin-bottom:4px;}
+.title-logo span{color:#ff6b35;}
+.title-sub{font-size:12px;font-weight:700;color:#8890cc;letter-spacing:3px;margin-bottom:40px;}
+.title-label{font-size:11px;font-weight:900;color:#ffd700;letter-spacing:2px;margin-bottom:14px;text-shadow:1px 1px 0 #b8a000;}
 
-/* ===== TABS ===== */
-.tabs{
-  display:flex;
-  background:#1e2040;
-  border-bottom:4px solid #14162e;
-  padding:0 8px;
-  gap:4px;
-  position:sticky;top:64px;z-index:29;
-}
-.tab{
-  flex:1;padding:11px 4px;
-  font-size:12px;font-weight:900;
-  color:#555;background:none;border:none;cursor:pointer;
-  letter-spacing:0.5px;border-bottom:4px solid transparent;
-  margin-bottom:-4px;transition:color 0.15s;
-  font-family:'Nunito',sans-serif;
-}
+.save-slot{width:100%;background:#2a2d55;border:3px solid #3a3e70;border-radius:14px;box-shadow:0 6px 0 #14162e;padding:16px;margin-bottom:12px;cursor:pointer;transition:transform 0.1s,box-shadow 0.1s;display:flex;align-items:center;gap:14px;text-align:left;font-family:'Nunito',sans-serif;}
+.save-slot:active{transform:translateY(5px);box-shadow:0 1px 0 #14162e;}
+.save-slot:hover{border-color:#5a5e90;}
+.save-slot.empty{border-style:dashed;opacity:0.6;}
+.slot-icon{width:56px;height:56px;background:#1e2040;border:2px solid #3a3e70;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.slot-info{flex:1;}
+.slot-name{font-size:16px;font-weight:900;color:#fff;text-shadow:1px 1px 0 #1e2040;}
+.slot-stats{font-size:11px;font-weight:700;color:#8890cc;margin-top:4px;line-height:1.8;}
+.slot-new{font-size:14px;font-weight:900;color:#8890cc;}
+.slot-del{background:#5a0a0a;border:2px solid #e74c3c;border-radius:8px;padding:4px 10px;font-size:10px;font-weight:900;color:#e74c3c;cursor:pointer;flex-shrink:0;}
+
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:#2a2d55;border:3px solid #3a3e70;border-radius:16px;box-shadow:0 8px 0 #14162e;padding:24px;width:100%;max-width:360px;}
+.modal-title{font-size:16px;font-weight:900;color:#ffd700;text-shadow:1px 1px 0 #b8a000;margin-bottom:16px;text-align:center;}
+.modal input{width:100%;background:#1e2040;border:3px solid #3a3e70;border-radius:10px;padding:12px 14px;font-size:16px;font-weight:700;color:#fff;font-family:'Nunito',sans-serif;margin-bottom:14px;outline:none;}
+.modal input:focus{border-color:#ff6b35;}
+.modal-btn{width:100%;padding:14px;background:#ff6b35;border:3px solid #c94f20;border-radius:12px;box-shadow:0 5px 0 #8a3610;color:#fff;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;text-shadow:1px 1px 0 #c94f20;}
+.modal-cancel{width:100%;padding:10px;margin-top:8px;background:none;border:2px solid #3a3e70;border-radius:10px;color:#8890cc;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+
+.hdr{background:#252849;border-bottom:4px solid #1a1c38;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;}
+.hdr-logo{font-size:15px;font-weight:900;color:#fff;text-shadow:2px 2px 0 #1a1c38;letter-spacing:1px;}
+.hdr-logo span{color:#ff6b35;}
+.hdr-right{display:flex;gap:6px;align-items:center;}
+.streak-pill{background:#ffd700;border:3px solid #b8a000;border-radius:8px;padding:4px 9px;font-size:12px;font-weight:900;color:#1a1a2e;}
+.coins-pill{background:#ff6b35;border:3px solid #c94f20;border-radius:8px;padding:4px 9px;font-size:12px;font-weight:900;color:#fff;text-shadow:1px 1px 0 #c94f20;}
+.back-title-btn{background:#3a3e70;border:2px solid #2a2d55;border-radius:7px;padding:4px 9px;font-size:11px;font-weight:900;color:#aaa;cursor:pointer;font-family:'Nunito',sans-serif;}
+
+.tabs{display:flex;background:#1e2040;border-bottom:4px solid #14162e;padding:0 8px;gap:4px;position:sticky;top:58px;z-index:29;}
+.tab{flex:1;padding:10px 4px;font-size:11px;font-weight:900;color:#555;background:none;border:none;cursor:pointer;letter-spacing:0.5px;border-bottom:4px solid transparent;margin-bottom:-4px;transition:color 0.15s;font-family:'Nunito',sans-serif;}
 .tab.active{color:#fff;border-bottom-color:#ff6b35;}
 
-/* ===== SCREENS ===== */
 .screen{display:none;padding:12px;}
 .screen.active{display:block;}
 
-/* ===== PARTNER ===== */
-.partner-wrap{
-  background:#2a2d55;
-  border:3px solid #1e2040;
-  border-radius:14px;
-  box-shadow:0 6px 0 #14162e;
-  padding:14px;
-  margin-bottom:12px;
-  display:flex;align-items:center;gap:14px;
-}
-.partner-block{
-  width:80px;height:80px;
-  background:#1e2040;
-  border:3px solid #3a3e70;
-  border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-  position:relative;overflow:hidden;
-}
-.partner-block::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:rgba(255,255,255,0.12);
-}
+.partner-wrap{background:#2a2d55;border:3px solid #1e2040;border-radius:14px;box-shadow:0 6px 0 #14162e;padding:14px;margin-bottom:12px;display:flex;align-items:center;gap:14px;}
+.partner-block{width:78px;height:78px;background:#1e2040;border:3px solid #3a3e70;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .partner-info{flex:1;}
-.p-name{font-size:17px;font-weight:900;color:#fff;text-shadow:2px 2px 0 #1e2040;}
-.p-level{
-  display:inline-block;margin-top:4px;
-  background:#ff6b35;border:2px solid #c94f20;
-  border-radius:6px;padding:2px 9px;
-  font-size:10px;font-weight:900;color:#fff;
-  text-shadow:1px 1px 0 #c94f20;
-}
+.p-name{font-size:16px;font-weight:900;color:#fff;text-shadow:2px 2px 0 #1e2040;}
+.p-level{display:inline-block;margin-top:4px;background:#ff6b35;border:2px solid #c94f20;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:900;color:#fff;text-shadow:1px 1px 0 #c94f20;}
 .xp-row{margin-top:10px;}
 .xp-lbl{font-size:10px;font-weight:700;color:#8890cc;margin-bottom:4px;}
-.xp-track{
-  height:14px;background:#1e2040;
-  border:2px solid #14162e;border-radius:7px;
-  overflow:hidden;
-}
-.xp-fill{
-  height:100%;background:#ffd700;border-radius:5px;
-  position:relative;
-}
-.xp-fill::after{
-  content:'';position:absolute;top:3px;left:4px;right:4px;height:4px;
-  background:rgba(255,255,255,0.35);border-radius:2px;
-}
+.xp-track{height:14px;background:#1e2040;border:2px solid #14162e;border-radius:7px;overflow:hidden;}
+.xp-fill{height:100%;background:#ffd700;border-radius:5px;position:relative;}
+.xp-fill::after{content:'';position:absolute;top:3px;left:4px;right:4px;height:4px;background:rgba(255,255,255,0.35);border-radius:2px;}
 
-/* ===== SUBJECT BUTTONS ===== */
 .subj-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px;}
-.subj-btn{
-  background:#2a2d55;
-  border:3px solid #1e2040;
-  border-radius:14px;
-  box-shadow:0 6px 0 #14162e;
-  padding:16px 10px;
-  cursor:pointer;
-  transition:transform 0.1s,box-shadow 0.1s;
-  position:relative;overflow:hidden;
-  text-align:center;
-}
+.subj-btn{background:#2a2d55;border:3px solid #1e2040;border-radius:14px;box-shadow:0 6px 0 #14162e;padding:14px 10px;cursor:pointer;transition:transform 0.1s,box-shadow 0.1s;position:relative;overflow:hidden;text-align:center;}
 .subj-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #14162e;}
-.subj-btn .s-icon{font-size:38px;display:block;margin-bottom:6px;filter:drop-shadow(2px 2px 0 rgba(0,0,0,0.4));}
+.subj-btn .s-icon{font-size:36px;display:block;margin-bottom:6px;}
 .subj-btn .s-lbl{font-size:13px;font-weight:900;color:#fff;text-shadow:1px 1px 0 #1e2040;}
 .subj-btn .s-sub{font-size:9px;font-weight:700;color:#8890cc;margin-top:3px;letter-spacing:1px;}
-.new-badge{
-  position:absolute;top:7px;right:7px;
-  background:#ff4757;border:2px solid #c0392b;
-  border-radius:5px;padding:2px 6px;
-  font-size:8px;font-weight:900;color:#fff;
-}
+.new-badge{position:absolute;top:7px;right:7px;background:#ff4757;border:2px solid #c0392b;border-radius:5px;padding:2px 6px;font-size:8px;font-weight:900;color:#fff;}
 
-/* ===== MISSION ===== */
-.mission-wrap{
-  background:#2a2d55;border:3px solid #1e2040;
-  border-radius:14px;box-shadow:0 5px 0 #14162e;
-  padding:14px;
-}
-.m-title{
-  font-size:11px;font-weight:900;color:#ffd700;
-  letter-spacing:1.5px;margin-bottom:10px;
-  text-shadow:1px 1px 0 #b8a000;
-}
-.m-item{
-  display:flex;align-items:center;gap:8px;
-  font-size:13px;font-weight:700;color:#8890cc;
-  padding:4px 0;
-}
+.cal-wrap{background:#2a2d55;border:3px solid #1e2040;border-radius:14px;box-shadow:0 5px 0 #14162e;padding:14px;margin-bottom:12px;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.cal-title{font-size:14px;font-weight:900;color:#ffd700;text-shadow:1px 1px 0 #b8a000;}
+.cal-nav{background:#1e2040;border:2px solid #3a3e70;border-radius:7px;padding:4px 10px;font-size:12px;font-weight:900;color:#aaa;cursor:pointer;font-family:'Nunito',sans-serif;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cal-day-label{font-size:9px;font-weight:900;color:#555;text-align:center;padding:3px 0;letter-spacing:0.5px;}
+.cal-day{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#555;background:#1e2040;border:1px solid #2a2d55;position:relative;}
+.cal-day.today{border-color:#ff6b35;color:#fff;}
+.cal-day.stamped{background:#145a32;border-color:#2ecc71;color:#2ecc71;}
+.cal-day.stamped::after{content:'⭐';position:absolute;font-size:7px;top:-3px;right:-3px;}
+.cal-day.empty{background:none;border-color:transparent;}
+
+.mission-wrap{background:#2a2d55;border:3px solid #1e2040;border-radius:14px;box-shadow:0 5px 0 #14162e;padding:14px;}
+.m-title{font-size:11px;font-weight:900;color:#ffd700;letter-spacing:1.5px;margin-bottom:10px;text-shadow:1px 1px 0 #b8a000;}
+.m-item{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#8890cc;padding:4px 0;}
 .m-item.done{color:#2ecc71;}
-.m-check{
-  width:20px;height:20px;
-  background:#1e2040;border:2px solid #3a3e70;
-  border-radius:5px;display:flex;align-items:center;justify-content:center;
-  font-size:11px;flex-shrink:0;
-}
+.m-check{width:20px;height:20px;background:#1e2040;border:2px solid #3a3e70;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
 .m-item.done .m-check{background:#145a32;border-color:#2ecc71;color:#2ecc71;}
 
-/* ===== QUIZ ===== */
 .qz-top{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
-.back-btn{
-  background:#3a3e70;border:3px solid #2a2d55;
-  border-radius:10px;padding:7px 14px;
-  font-size:12px;font-weight:900;color:#fff;cursor:pointer;
-  font-family:'Nunito',sans-serif;
-  box-shadow:0 4px 0 #1e2040;
-}
+.back-btn{background:#3a3e70;border:3px solid #2a2d55;border-radius:10px;padding:7px 14px;font-size:12px;font-weight:900;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 4px 0 #1e2040;}
 .back-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #1e2040;}
-.qz-name{font-size:14px;font-weight:900;color:#ffd700;text-shadow:1px 1px 0 #b8a000;}
-.prog-outer{
-  height:16px;background:#1e2040;
-  border:2px solid #14162e;border-radius:8px;
-  overflow:hidden;margin-bottom:8px;
-}
-.prog-inner{
-  height:100%;background:#2ecc71;
-  position:relative;transition:width 0.3s;
-}
-.prog-inner::after{
-  content:'';position:absolute;top:3px;left:4px;right:4px;height:4px;
-  background:rgba(255,255,255,0.4);border-radius:2px;
-}
-.prog-txt{font-size:11px;font-weight:700;color:#8890cc;text-align:right;margin-bottom:12px;}
-
-.q-block{
-  background:#1e2040;border:3px solid #3a3e70;
-  border-radius:14px;padding:18px;margin-bottom:12px;
-}
-.q-tag{
-  display:inline-block;
-  background:#ff6b35;border:2px solid #c94f20;
-  border-radius:6px;padding:2px 10px;
-  font-size:10px;font-weight:900;color:#fff;
-  margin-bottom:10px;text-shadow:1px 1px 0 #c94f20;
-}
+.qz-name{font-size:13px;font-weight:900;color:#ffd700;text-shadow:1px 1px 0 #b8a000;}
+.prog-outer{height:16px;background:#1e2040;border:2px solid #14162e;border-radius:8px;overflow:hidden;margin-bottom:8px;}
+.prog-inner{height:100%;background:#2ecc71;position:relative;transition:width 0.3s;}
+.prog-inner::after{content:'';position:absolute;top:3px;left:4px;right:4px;height:4px;background:rgba(255,255,255,0.4);border-radius:2px;}
+.prog-txt{font-size:10px;font-weight:700;color:#8890cc;text-align:right;margin-bottom:12px;}
+.q-block{background:#1e2040;border:3px solid #3a3e70;border-radius:14px;padding:18px;margin-bottom:12px;}
+.q-tag{display:inline-block;background:#ff6b35;border:2px solid #c94f20;border-radius:6px;padding:2px 10px;font-size:10px;font-weight:900;color:#fff;margin-bottom:10px;text-shadow:1px 1px 0 #c94f20;}
 .q-text{font-size:16px;font-weight:700;line-height:1.7;color:#fff;}
-.q-hint{
-  margin-top:12px;background:#252849;
-  border:2px solid #ffd700;border-radius:8px;
-  padding:10px 12px;font-size:12px;font-weight:700;color:#ffd700;
-  display:none;
-}
-
-.hint-btn{
-  background:#2a2d55;border:2px dashed #3a3e70;
-  border-radius:10px;padding:8px 14px;
-  font-size:12px;font-weight:900;color:#8890cc;
-  cursor:pointer;margin-bottom:12px;width:100%;
-  font-family:'Nunito',sans-serif;
-}
-
+.q-hint{margin-top:12px;background:#252849;border:2px solid #ffd700;border-radius:8px;padding:10px 12px;font-size:12px;font-weight:700;color:#ffd700;display:none;}
+.hint-btn{background:#2a2d55;border:2px dashed #3a3e70;border-radius:10px;padding:8px 14px;font-size:12px;font-weight:900;color:#8890cc;cursor:pointer;margin-bottom:12px;width:100%;font-family:'Nunito',sans-serif;}
 .choices{display:grid;gap:10px;margin-bottom:12px;}
-.choice{
-  background:#2a2d55;border:3px solid #3a3e70;
-  border-radius:12px;box-shadow:0 5px 0 #14162e;
-  padding:14px 16px;
-  color:#fff;font-size:16px;font-weight:700;
-  cursor:pointer;text-align:left;
-  display:flex;align-items:center;gap:12px;
-  transition:transform 0.1s,box-shadow 0.1s;
-  font-family:'Nunito',sans-serif;width:100%;
-}
+.choice{background:#2a2d55;border:3px solid #3a3e70;border-radius:12px;box-shadow:0 5px 0 #14162e;padding:14px 16px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:transform 0.1s,box-shadow 0.1s;font-family:'Nunito',sans-serif;width:100%;}
 .choice:not(:disabled):active{transform:translateY(4px);box-shadow:0 1px 0 #14162e;}
 .choice:not(:disabled):hover{background:#343870;border-color:#5a5e90;}
 .choice.correct{background:#145a32;border-color:#2ecc71;box-shadow:0 5px 0 #0a3a1e;color:#2ecc71;}
 .choice.wrong{background:#5a0a0a;border-color:#e74c3c;box-shadow:0 5px 0 #3a0505;color:#e74c3c;}
-.ch-lbl{
-  width:30px;height:30px;border-radius:7px;
-  background:#1e2040;border:2px solid #3a3e70;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:900;color:#8890cc;flex-shrink:0;
-}
+.ch-lbl{width:30px;height:30px;border-radius:7px;background:#1e2040;border:2px solid #3a3e70;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#8890cc;flex-shrink:0;}
 .choice.correct .ch-lbl{background:#0a3a1e;border-color:#2ecc71;color:#2ecc71;}
 .choice.wrong .ch-lbl{background:#3a0505;border-color:#e74c3c;color:#e74c3c;}
-
-.feedback{
-  border-radius:12px;padding:16px;
-  margin-bottom:12px;display:none;
-  animation:popIn 0.2s cubic-bezier(0.175,0.885,0.32,1.275);
-}
+.feedback{border-radius:12px;padding:16px;margin-bottom:12px;display:none;animation:popIn 0.2s cubic-bezier(0.175,0.885,0.32,1.275);}
 @keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
 .feedback.correct{background:#145a32;border:3px solid #2ecc71;box-shadow:0 5px 0 #0a3a1e;}
 .feedback.wrong{background:#5a0a0a;border:3px solid #e74c3c;box-shadow:0 5px 0 #3a0505;}
 .fb-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.fb-ico{font-size:24px;}
-.fb-ttl{font-size:16px;font-weight:900;}
-.feedback.correct .fb-ttl{color:#2ecc71;text-shadow:1px 1px 0 #0a3a1e;}
-.feedback.wrong .fb-ttl{color:#e74c3c;text-shadow:1px 1px 0 #3a0505;}
+.fb-ico{font-size:22px;}
+.fb-ttl{font-size:15px;font-weight:900;}
+.feedback.correct .fb-ttl{color:#2ecc71;}
+.feedback.wrong .fb-ttl{color:#e74c3c;}
 .fb-exp{font-size:13px;font-weight:700;color:#aaa;line-height:1.6;}
-
-.next-btn{
-  width:100%;padding:16px;
-  background:#ff6b35;border:3px solid #c94f20;
-  border-radius:12px;box-shadow:0 6px 0 #8a3610;
-  color:#fff;font-size:17px;font-weight:900;
-  cursor:pointer;display:none;
-  font-family:'Nunito',sans-serif;
-  text-shadow:2px 2px 0 #c94f20;
-  transition:transform 0.1s,box-shadow 0.1s;
-}
+.next-btn{width:100%;padding:15px;background:#ff6b35;border:3px solid #c94f20;border-radius:12px;box-shadow:0 6px 0 #8a3610;color:#fff;font-size:16px;font-weight:900;cursor:pointer;display:none;font-family:'Nunito',sans-serif;text-shadow:1px 1px 0 #c94f20;transition:transform 0.1s,box-shadow 0.1s;}
 .next-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #8a3610;}
 
-/* ===== RESULT ===== */
 .result-wrap{text-align:center;padding:20px 0;}
-.result-icon{
-  width:120px;height:120px;
-  background:#1e2040;border:4px solid #3a3e70;
-  border-radius:18px;box-shadow:0 8px 0 #14162e;
-  margin:0 auto 16px;
-  display:flex;align-items:center;justify-content:center;
-}
-.result-score{font-size:48px;font-weight:900;color:#ffd700;text-shadow:3px 3px 0 #b8a000;}
-.result-stars{font-size:36px;letter-spacing:6px;margin:10px 0;}
-.result-msg{font-size:14px;font-weight:700;color:#8890cc;margin-bottom:18px;line-height:1.6;}
-.result-gain{
-  background:#1e2040;border:3px solid #3a3e70;
-  border-radius:12px;padding:14px;margin-bottom:18px;
-  font-size:14px;font-weight:700;color:#ffd700;
-  text-shadow:1px 1px 0 #b8a000;line-height:1.8;
-}
-.play-again{
-  width:100%;padding:16px;
-  background:#2ecc71;border:3px solid #27ae60;
-  border-radius:12px;box-shadow:0 6px 0 #1a7a40;
-  color:#fff;font-size:16px;font-weight:900;
-  cursor:pointer;margin-bottom:10px;
-  font-family:'Nunito',sans-serif;
-  text-shadow:1px 1px 0 #1a7a40;
-  transition:transform 0.1s,box-shadow 0.1s;
-}
+.result-icon{width:110px;height:110px;background:#1e2040;border:4px solid #3a3e70;border-radius:18px;box-shadow:0 8px 0 #14162e;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;}
+.result-score{font-size:46px;font-weight:900;color:#ffd700;text-shadow:3px 3px 0 #b8a000;}
+.result-stars{font-size:34px;letter-spacing:6px;margin:8px 0;}
+.result-msg{font-size:13px;font-weight:700;color:#8890cc;margin-bottom:16px;line-height:1.6;}
+.result-gain{background:#1e2040;border:3px solid #3a3e70;border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px;font-weight:700;color:#ffd700;text-shadow:1px 1px 0 #b8a000;line-height:1.8;}
+.play-again{width:100%;padding:15px;background:#2ecc71;border:3px solid #27ae60;border-radius:12px;box-shadow:0 6px 0 #1a7a40;color:#fff;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:10px;font-family:'Nunito',sans-serif;text-shadow:1px 1px 0 #1a7a40;transition:transform 0.1s,box-shadow 0.1s;}
 .play-again:active{transform:translateY(5px);box-shadow:0 1px 0 #1a7a40;}
-.home-lnk{
-  width:100%;padding:14px;
-  background:#3a3e70;border:3px solid #2a2d55;
-  border-radius:12px;box-shadow:0 5px 0 #1e2040;
-  color:#ccc;font-size:14px;font-weight:700;cursor:pointer;
-  font-family:'Nunito',sans-serif;
-  transition:transform 0.1s,box-shadow 0.1s;
-}
+.home-lnk{width:100%;padding:13px;background:#3a3e70;border:3px solid #2a2d55;border-radius:12px;box-shadow:0 5px 0 #1e2040;color:#ccc;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:transform 0.1s,box-shadow 0.1s;}
 .home-lnk:active{transform:translateY(4px);box-shadow:0 1px 0 #1e2040;}
 
-/* ===== ZUKAN ===== */
 .zu-filter{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
-.flt{
-  background:#2a2d55;border:2px solid #3a3e70;
-  border-radius:8px;padding:6px 12px;
-  font-size:11px;font-weight:900;color:#8890cc;
-  cursor:pointer;font-family:'Nunito',sans-serif;
-  box-shadow:0 3px 0 #1e2040;
-  transition:transform 0.1s,box-shadow 0.1s;
-}
-.flt:active{transform:translateY(2px);box-shadow:0 1px 0 #1e2040;}
+.flt{background:#2a2d55;border:2px solid #3a3e70;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:900;color:#8890cc;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 3px 0 #1e2040;transition:transform 0.1s;}
+.flt:active{transform:translateY(2px);}
 .flt.on{background:#ff6b35;border-color:#c94f20;color:#fff;box-shadow:0 3px 0 #8a3610;text-shadow:1px 1px 0 #c94f20;}
 .zu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-.zu-card{
-  background:#2a2d55;border:3px solid #3a3e70;
-  border-radius:14px;box-shadow:0 5px 0 #14162e;
-  padding:14px;text-align:center;
-}
+.zu-card{background:#2a2d55;border:3px solid #3a3e70;border-radius:14px;box-shadow:0 5px 0 #14162e;padding:14px;text-align:center;}
 .zu-card.owned{border-color:#ffd700;box-shadow:0 5px 0 #7a6000;}
 .zu-card.locked{opacity:0.35;filter:grayscale(0.7);}
-.zu-art{
-  width:64px;height:64px;
-  background:#1e2040;border:2px solid #3a3e70;
-  border-radius:10px;margin:0 auto 8px;
-  display:flex;align-items:center;justify-content:center;
-}
+.zu-art{width:64px;height:64px;background:#1e2040;border:2px solid #3a3e70;border-radius:10px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;}
 .zu-name{font-size:13px;font-weight:900;color:#fff;text-shadow:1px 1px 0 #1e2040;}
-.zu-type{
-  display:inline-block;margin-top:4px;
-  background:#3a3e70;border-radius:4px;
-  padding:2px 8px;font-size:9px;font-weight:900;color:#8890cc;letter-spacing:0.5px;
-}
-.zu-lv{
-  background:#ffd700;border:2px solid #b8a000;
-  border-radius:6px;padding:2px 8px;
-  font-size:10px;font-weight:900;color:#1a1a2e;
-  display:inline-block;margin-top:6px;
-}
+.zu-type{display:inline-block;margin-top:4px;background:#3a3e70;border-radius:4px;padding:2px 8px;font-size:9px;font-weight:900;color:#8890cc;letter-spacing:0.5px;}
+.zu-lv{background:#ffd700;border:2px solid #b8a000;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:900;color:#1a1a2e;display:inline-block;margin-top:6px;}
 .zu-lock{font-size:9px;font-weight:700;color:#5a5e90;margin-top:5px;line-height:1.4;}
 </style>
 </head>
 <body>
-<div class="app">
+
+<div id="titleScreen">
+  <div class="title-logo">SANSUU<span>QUEST</span></div>
+  <div class="title-sub">5ねんせいの さんすう ぼうけん</div>
+  <div class="title-label">⚔️ ぼうけんの書を えらんでね</div>
+  <div id="slotList" style="width:100%;max-width:380px;"></div>
+</div>
+
+<div class="modal-bg" id="nameModal" style="display:none;">
+  <div class="modal">
+    <div class="modal-title">🌟 あたらしい ぼうけんの書</div>
+    <input type="text" id="nameInput" placeholder="なまえをいれてね" maxlength="8">
+    <button class="modal-btn" onclick="createSave()">ぼうけんをはじめる！</button>
+    <button class="modal-cancel" onclick="closeModal()">キャンセル</button>
+  </div>
+</div>
+
+<div class="app" id="mainApp" style="display:none;">
   <div class="hdr">
-    <div class="hdr-logo">SANSUU<span>QUEST</span></div>
-    <div class="hdr-pills">
-      <div class="streak-pill">🔥 <span id="strk">3</span></div>
-      <div class="coins-pill">🪙 <b id="cns">120</b></div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="back-title-btn" onclick="backToTitle()">← 書</button>
+      <div class="hdr-logo">SANSUU<span>QUEST</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="streak-pill">🔥 <span id="strk">0</span></div>
+      <div class="coins-pill">🪙 <span id="cns">0</span></div>
     </div>
   </div>
-
   <div class="tabs">
     <button class="tab active" onclick="goTab('home',this)">🏠 ホーム</button>
     <button class="tab" onclick="goTab('quiz',this)">⚔️ バトル</button>
     <button class="tab" onclick="goTab('zukan',this)">📖 ずかん</button>
   </div>
 
-  <!-- HOME -->
   <div id="home" class="screen active">
     <div class="partner-wrap">
       <div class="partner-block" id="pArt"></div>
       <div class="partner-info">
         <div class="p-name" id="pName">フラクロン</div>
-        <div class="p-level">Lv.5 PARTNER</div>
+        <div class="p-level" id="pLevel">Lv.1 PARTNER</div>
         <div class="xp-row">
-          <div class="xp-lbl">EXP 68/100 → Lv.6まであと32！</div>
-          <div class="xp-track"><div class="xp-fill" style="width:68%"></div></div>
+          <div class="xp-lbl" id="xpLbl">EXP 0/100</div>
+          <div class="xp-track"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
         </div>
       </div>
     </div>
+    <div class="cal-wrap">
+      <div class="cal-header">
+        <button class="cal-nav" onclick="calPrev()">◀</button>
+        <div class="cal-title" id="calTitle"></div>
+        <button class="cal-nav" onclick="calNext()">▶</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
     <div class="subj-grid">
-      <div class="subj-btn" onclick="startBattle('fraction')">
-        <span class="s-icon">🍕</span>
-        <div class="s-lbl">分数・小数</div>
-        <div class="s-sub">FRACTION</div>
-        <div class="new-badge">NEW</div>
-      </div>
-      <div class="subj-btn" onclick="startBattle('shape')">
-        <span class="s-icon">📐</span>
-        <div class="s-lbl">図形・面積</div>
-        <div class="s-sub">GEOMETRY</div>
-      </div>
-      <div class="subj-btn" onclick="startBattle('story')">
-        <span class="s-icon">📝</span>
-        <div class="s-lbl">文章題</div>
-        <div class="s-sub">WORD PROB</div>
-      </div>
-      <div class="subj-btn" onclick="startBattle('calc')">
-        <span class="s-icon">⚡</span>
-        <div class="s-lbl">計算マスター</div>
-        <div class="s-sub">CALCULATE</div>
-      </div>
+      <div class="subj-btn" onclick="startBattle('fraction')"><span class="s-icon">🍕</span><div class="s-lbl">分数・小数</div><div class="s-sub">FRACTION</div><div class="new-badge">NEW</div></div>
+      <div class="subj-btn" onclick="startBattle('shape')"><span class="s-icon">📐</span><div class="s-lbl">図形・面積</div><div class="s-sub">GEOMETRY</div></div>
+      <div class="subj-btn" onclick="startBattle('story')"><span class="s-icon">📝</span><div class="s-lbl">文章題</div><div class="s-sub">WORD PROB</div></div>
+      <div class="subj-btn" onclick="startBattle('calc')"><span class="s-icon">⚡</span><div class="s-lbl">計算マスター</div><div class="s-sub">CALCULATE</div></div>
     </div>
     <div class="mission-wrap">
       <div class="m-title">⭐ DAILY MISSION</div>
-      <div class="m-item done"><div class="m-check">✓</div>分数の問題を3問解く</div>
-      <div class="m-item"><div class="m-check"></div>全問正解でコンボをつなぐ</div>
-      <div class="m-item"><div class="m-check"></div>新モンスターをゲットする</div>
+      <div class="m-item" id="m1"><div class="m-check" id="m1c"></div>きょうはじめてバトルする</div>
+      <div class="m-item" id="m2"><div class="m-check" id="m2c"></div>3もん以上せいかい</div>
+      <div class="m-item" id="m3"><div class="m-check" id="m3c"></div>ぜんもんせいかい（パーフェクト）</div>
     </div>
   </div>
 
-  <!-- QUIZ -->
   <div id="quiz" class="screen">
-    <div id="qzContent">
-      <div style="padding:60px 20px;text-align:center;color:#555;font-weight:700;font-size:14px;">
-        ホームからバトルを選んでね！
-      </div>
-    </div>
+    <div id="qzContent"><div style="padding:60px 20px;text-align:center;color:#555;font-weight:700;font-size:14px;">ホームからバトルを選んでね！</div></div>
   </div>
 
-  <!-- ZUKAN -->
   <div id="zukan" class="screen">
     <div class="zu-filter">
       <div class="flt on" onclick="flt('all',this)">すべて</div>
@@ -439,171 +236,219 @@ body{
 
 <script>
 const MONS=[
-  {id:0,name:"フラクロン",type:"FRACTION",subj:"fraction",lv:5,owned:true,unlock:"分数バトル初勝利",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="10" y="14" width="44" height="36" rx="6" fill="#3730a3"/><rect x="10" y="14" width="44" height="10" rx="6" fill="#4f46e5"/><rect x="10" y="20" width="44" height="4" fill="#4f46e5"/><circle cx="22" cy="30" r="6" fill="#1e1b4b"/><circle cx="23" cy="29" r="2.5" fill="#a5b4fc"/><circle cx="42" cy="30" r="6" fill="#1e1b4b"/><circle cx="43" cy="29" r="2.5" fill="#a5b4fc"/><rect x="20" y="39" width="24" height="4" rx="2" fill="#6366f1"/><rect x="28" y="35" width="8" height="4" rx="2" fill="#818cf8"/><rect x="4" y="26" width="8" height="6" rx="3" fill="#4f46e5"/><rect x="52" y="26" width="8" height="6" rx="3" fill="#4f46e5"/></svg>`},
-  {id:1,name:"ジオメドラ",type:"SHAPE",subj:"shape",lv:3,owned:true,unlock:"図形バトル初勝利",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,6 58,52 6,52" fill="#0f766e"/><polygon points="32,14 50,48 14,48" fill="#134e4a"/><polygon points="32,22 44,44 20,44" fill="#0f766e" opacity="0.8"/><circle cx="32" cy="34" r="7" fill="#14b8a6"/><circle cx="32" cy="33" r="3" fill="#ccfbf1"/><circle cx="6" cy="52" r="4" fill="#14b8a6"/><circle cx="58" cy="52" r="4" fill="#14b8a6"/><circle cx="32" cy="6" r="4" fill="#14b8a6"/></svg>`},
-  {id:2,name:"カルクス",type:"CALC",subj:"calc",lv:2,owned:true,unlock:"計算バトル初勝利",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="8" y="10" width="48" height="44" rx="8" fill="#431407"/><rect x="8" y="10" width="48" height="14" rx="8" fill="#ea580c"/><rect x="8" y="20" width="48" height="4" fill="#ea580c"/><rect x="14" y="30" width="10" height="10" rx="3" fill="#1c0a03"/><text x="19" y="38" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="900">÷</text><rect x="27" y="30" width="10" height="10" rx="3" fill="#1c0a03"/><text x="32" y="38" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="900">×</text><rect x="40" y="30" width="10" height="10" rx="3" fill="#1c0a03"/><text x="45" y="38" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="900">+</text><rect x="14" y="44" width="36" height="6" rx="3" fill="#1c0a03"/><text x="32" y="49" text-anchor="middle" font-size="8" fill="#fb923c" font-weight="900">=?</text></svg>`},
-  {id:3,name:"ストーミア",type:"WORD",subj:"story",lv:0,owned:false,unlock:"文章題バトル初勝利",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><ellipse cx="32" cy="36" rx="24" ry="20" fill="#1e40af"/><circle cx="20" cy="20" r="10" fill="#2563eb"/><circle cx="38" cy="16" r="14" fill="#3b82f6"/><circle cx="50" cy="24" r="10" fill="#2563eb"/><circle cx="28" cy="32" r="4" fill="#1e3a8a"/><circle cx="29" cy="31" r="1.5" fill="#bfdbfe"/><circle cx="38" cy="30" r="4" fill="#1e3a8a"/><circle cx="39" cy="29" r="1.5" fill="#bfdbfe"/><path d="M26 40 Q32 44 38 40" stroke="#93c5fd" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`},
-  {id:4,name:"ヴォルテック",type:"CALC",subj:"calc",lv:0,owned:false,unlock:"計算10問正解",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,4 40,22 60,22 44,36 50,56 32,44 14,56 20,36 4,22 24,22" fill="#92400e"/><polygon points="32,10 38,24 54,24 42,34 46,50 32,40 18,50 22,34 10,24 26,24" fill="#b45309" opacity="0.8"/><circle cx="32" cy="30" r="9" fill="#78350f"/><circle cx="32" cy="30" r="5" fill="#f59e0b"/><circle cx="32" cy="29" r="2" fill="#fef3c7"/></svg>`},
-  {id:5,name:"クリスタリア",type:"FRACTION",subj:"fraction",lv:0,owned:false,unlock:"分数5連続正解",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,6 44,18 44,46 32,58 20,46 20,18" fill="#701a75"/><polygon points="32,12 40,20 40,44 32,52 24,44 24,20" fill="#86198f" opacity="0.8"/><circle cx="32" cy="32" r="7" fill="#a21caf"/><circle cx="32" cy="31" r="3" fill="#f0abfc"/><line x1="32" y1="6" x2="32" y2="14" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="18" x2="38" y2="22" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="46" x2="38" y2="42" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="58" x2="32" y2="50" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="46" x2="26" y2="42" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="18" x2="26" y2="22" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/></svg>`},
-  {id:6,name:"ゼフィロス",type:"SHAPE",subj:"shape",lv:0,owned:false,unlock:"図形3連続正解",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><circle cx="32" cy="32" r="26" fill="#14532d"/><circle cx="32" cy="32" r="18" fill="#166534"/><circle cx="32" cy="32" r="10" fill="#15803d"/><circle cx="32" cy="32" r="5" fill="#4ade80"/><line x1="32" y1="6" x2="32" y2="22" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="42" x2="32" y2="58" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/><line x1="6" y1="32" x2="22" y2="32" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/><line x1="42" y1="32" x2="58" y2="32" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/></svg>`},
-  {id:7,name:"シャドウレクス",type:"WORD",subj:"story",lv:0,owned:false,unlock:"文章題5問正解",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="6" y="10" width="52" height="44" rx="8" fill="#450a0a"/><rect x="6" y="10" width="52" height="16" rx="8" fill="#7f1d1d"/><rect x="6" y="22" width="52" height="4" fill="#7f1d1d"/><rect x="14" y="30" width="14" height="14" rx="4" fill="#1c0505"/><circle cx="21" cy="37" r="4" fill="#7f1d1d"/><circle cx="22" cy="36" r="1.5" fill="#fca5a5"/><rect x="36" y="30" width="14" height="14" rx="4" fill="#1c0505"/><circle cx="43" cy="37" r="4" fill="#7f1d1d"/><circle cx="44" cy="36" r="1.5" fill="#fca5a5"/><path d="M20 50 Q32 46 44 50" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`},
-  {id:8,name:"ルミナスα",type:"CALC",subj:"calc",lv:0,owned:false,unlock:"計算パーフェクト",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><circle cx="32" cy="32" r="26" fill="#1e1b4b"/><polygon points="32,10 36,26 52,26 40,36 44,52 32,42 20,52 24,36 12,26 28,26" fill="#312e81"/><circle cx="32" cy="32" r="7" fill="#4f46e5"/><circle cx="32" cy="31" r="3" fill="#e0e7ff"/></svg>`},
-  {id:9,name:"ネクサリオン",type:"SHAPE",subj:"shape",lv:0,owned:false,unlock:"図形マスター",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="8" y="8" width="48" height="48" rx="10" fill="#78350f"/><rect x="16" y="16" width="32" height="32" rx="6" fill="#92400e"/><rect x="24" y="24" width="16" height="16" rx="4" fill="#b45309"/><circle cx="32" cy="32" r="6" fill="#f59e0b"/><circle cx="32" cy="31" r="2.5" fill="#fef3c7"/><rect x="28" y="8" width="8" height="10" rx="3" fill="#f59e0b"/><rect x="28" y="46" width="8" height="10" rx="3" fill="#f59e0b"/><rect x="8" y="28" width="10" height="8" rx="3" fill="#f59e0b"/><rect x="46" y="28" width="10" height="8" rx="3" fill="#f59e0b"/></svg>`},
-  {id:10,name:"オメガゼロ",type:"FRACTION",subj:"fraction",lv:0,owned:false,unlock:"全単元クリア",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><circle cx="32" cy="32" r="28" fill="#2e1065"/><circle cx="32" cy="32" r="20" fill="#3b0764"/><text x="32" y="40" text-anchor="middle" font-size="26" fill="#9333ea" font-weight="900">Ω</text><circle cx="18" cy="20" r="5" fill="#4a004e"/><circle cx="19" cy="19" r="2" fill="#d8b4fe"/><circle cx="46" cy="20" r="5" fill="#4a004e"/><circle cx="47" cy="19" r="2" fill="#d8b4fe"/></svg>`},
-  {id:11,name:"アポテオス",type:"LEGEND",subj:"all",lv:0,owned:false,unlock:"全モンスターコンプ",
-   svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,2 40,22 62,22 46,36 52,58 32,46 12,58 18,36 2,22 24,22" fill="#713f12"/><polygon points="32,8 38,24 56,24 44,34 48,54 32,44 16,54 20,34 8,24 26,24" fill="#92400e"/><circle cx="32" cy="30" r="10" fill="#b45309"/><circle cx="32" cy="30" r="6" fill="#eab308"/><circle cx="32" cy="29" r="2.5" fill="#fef9c3"/></svg>`},
+  {id:0,name:"フラクロン",type:"FRACTION",subj:"fraction",unlock:"分数バトル初勝利",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="10" y="14" width="44" height="36" rx="6" fill="#3730a3"/><rect x="10" y="14" width="44" height="10" rx="6" fill="#4f46e5"/><rect x="10" y="20" width="44" height="4" fill="#4f46e5"/><circle cx="22" cy="30" r="6" fill="#1e1b4b"/><circle cx="23" cy="29" r="2.5" fill="#a5b4fc"/><circle cx="42" cy="30" r="6" fill="#1e1b4b"/><circle cx="43" cy="29" r="2.5" fill="#a5b4fc"/><rect x="20" y="39" width="24" height="4" rx="2" fill="#6366f1"/><rect x="28" y="35" width="8" height="4" rx="2" fill="#818cf8"/><rect x="4" y="26" width="8" height="6" rx="3" fill="#4f46e5"/><rect x="52" y="26" width="8" height="6" rx="3" fill="#4f46e5"/></svg>`},
+  {id:1,name:"ジオメドラ",type:"SHAPE",subj:"shape",unlock:"図形バトル初勝利",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,6 58,52 6,52" fill="#0f766e"/><polygon points="32,14 50,48 14,48" fill="#134e4a"/><polygon points="32,22 44,44 20,44" fill="#0f766e" opacity="0.8"/><circle cx="32" cy="34" r="7" fill="#14b8a6"/><circle cx="32" cy="33" r="3" fill="#ccfbf1"/><circle cx="6" cy="52" r="4" fill="#14b8a6"/><circle cx="58" cy="52" r="4" fill="#14b8a6"/><circle cx="32" cy="6" r="4" fill="#14b8a6"/></svg>`},
+  {id:2,name:"カルクス",type:"CALC",subj:"calc",unlock:"計算バトル初勝利",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="8" y="10" width="48" height="44" rx="8" fill="#431407"/><rect x="8" y="10" width="48" height="14" rx="8" fill="#ea580c"/><rect x="8" y="20" width="48" height="4" fill="#ea580c"/><rect x="14" y="30" width="10" height="10" rx="3" fill="#1c0a03"/><text x="19" y="38" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="900">÷</text><rect x="27" y="30" width="10" height="10" rx="3" fill="#1c0a03"/><text x="32" y="38" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="900">×</text><rect x="40" y="30" width="10" height="10" rx="3" fill="#1c0a03"/><text x="45" y="38" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="900">+</text><rect x="14" y="44" width="36" height="6" rx="3" fill="#1c0a03"/><text x="32" y="49" text-anchor="middle" font-size="8" fill="#fb923c" font-weight="900">=?</text></svg>`},
+  {id:3,name:"ストーミア",type:"WORD",subj:"story",unlock:"文章題バトル初勝利",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><ellipse cx="32" cy="36" rx="24" ry="20" fill="#1e40af"/><circle cx="20" cy="20" r="10" fill="#2563eb"/><circle cx="38" cy="16" r="14" fill="#3b82f6"/><circle cx="50" cy="24" r="10" fill="#2563eb"/><circle cx="28" cy="32" r="4" fill="#1e3a8a"/><circle cx="29" cy="31" r="1.5" fill="#bfdbfe"/><circle cx="38" cy="30" r="4" fill="#1e3a8a"/><circle cx="39" cy="29" r="1.5" fill="#bfdbfe"/><path d="M26 40 Q32 44 38 40" stroke="#93c5fd" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`},
+  {id:4,name:"ヴォルテック",type:"CALC",subj:"calc",unlock:"計算10問正解",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,4 40,22 60,22 44,36 50,56 32,44 14,56 20,36 4,22 24,22" fill="#92400e"/><polygon points="32,10 38,24 54,24 42,34 46,50 32,40 18,50 22,34 10,24 26,24" fill="#b45309" opacity="0.8"/><circle cx="32" cy="30" r="9" fill="#78350f"/><circle cx="32" cy="30" r="5" fill="#f59e0b"/><circle cx="32" cy="29" r="2" fill="#fef3c7"/></svg>`},
+  {id:5,name:"クリスタリア",type:"FRACTION",subj:"fraction",unlock:"分数5連続正解",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,6 44,18 44,46 32,58 20,46 20,18" fill="#701a75"/><polygon points="32,12 40,20 40,44 32,52 24,44 24,20" fill="#86198f" opacity="0.8"/><circle cx="32" cy="32" r="7" fill="#a21caf"/><circle cx="32" cy="31" r="3" fill="#f0abfc"/><line x1="32" y1="6" x2="32" y2="14" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="18" x2="38" y2="22" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="46" x2="38" y2="42" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="58" x2="32" y2="50" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="46" x2="26" y2="42" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="18" x2="26" y2="22" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/></svg>`},
+  {id:6,name:"ゼフィロス",type:"SHAPE",subj:"shape",unlock:"図形3連続正解",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><circle cx="32" cy="32" r="26" fill="#14532d"/><circle cx="32" cy="32" r="18" fill="#166534"/><circle cx="32" cy="32" r="10" fill="#15803d"/><circle cx="32" cy="32" r="5" fill="#4ade80"/><line x1="32" y1="6" x2="32" y2="22" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="42" x2="32" y2="58" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/><line x1="6" y1="32" x2="22" y2="32" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/><line x1="42" y1="32" x2="58" y2="32" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/></svg>`},
+  {id:7,name:"シャドウレクス",type:"WORD",subj:"story",unlock:"文章題5問正解",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="6" y="10" width="52" height="44" rx="8" fill="#450a0a"/><rect x="6" y="10" width="52" height="16" rx="8" fill="#7f1d1d"/><rect x="6" y="22" width="52" height="4" fill="#7f1d1d"/><rect x="14" y="30" width="14" height="14" rx="4" fill="#1c0505"/><circle cx="21" cy="37" r="4" fill="#7f1d1d"/><circle cx="22" cy="36" r="1.5" fill="#fca5a5"/><rect x="36" y="30" width="14" height="14" rx="4" fill="#1c0505"/><circle cx="43" cy="37" r="4" fill="#7f1d1d"/><circle cx="44" cy="36" r="1.5" fill="#fca5a5"/><path d="M20 50 Q32 46 44 50" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`},
+  {id:8,name:"ルミナスα",type:"CALC",subj:"calc",unlock:"計算パーフェクト",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><circle cx="32" cy="32" r="26" fill="#1e1b4b"/><polygon points="32,10 36,26 52,26 40,36 44,52 32,42 20,52 24,36 12,26 28,26" fill="#312e81"/><circle cx="32" cy="32" r="7" fill="#4f46e5"/><circle cx="32" cy="31" r="3" fill="#e0e7ff"/></svg>`},
+  {id:9,name:"ネクサリオン",type:"SHAPE",subj:"shape",unlock:"図形マスター",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><rect x="8" y="8" width="48" height="48" rx="10" fill="#78350f"/><rect x="16" y="16" width="32" height="32" rx="6" fill="#92400e"/><rect x="24" y="24" width="16" height="16" rx="4" fill="#b45309"/><circle cx="32" cy="32" r="6" fill="#f59e0b"/><circle cx="32" cy="31" r="2.5" fill="#fef3c7"/><rect x="28" y="8" width="8" height="10" rx="3" fill="#f59e0b"/><rect x="28" y="46" width="8" height="10" rx="3" fill="#f59e0b"/><rect x="8" y="28" width="10" height="8" rx="3" fill="#f59e0b"/><rect x="46" y="28" width="10" height="8" rx="3" fill="#f59e0b"/></svg>`},
+  {id:10,name:"オメガゼロ",type:"FRACTION",subj:"fraction",unlock:"全単元クリア",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><circle cx="32" cy="32" r="28" fill="#2e1065"/><circle cx="32" cy="32" r="20" fill="#3b0764"/><text x="32" y="40" text-anchor="middle" font-size="26" fill="#9333ea" font-weight="900">Ω</text><circle cx="18" cy="20" r="5" fill="#4a004e"/><circle cx="19" cy="19" r="2" fill="#d8b4fe"/><circle cx="46" cy="20" r="5" fill="#4a004e"/><circle cx="47" cy="19" r="2" fill="#d8b4fe"/></svg>`},
+  {id:11,name:"アポテオス",type:"LEGEND",subj:"all",unlock:"全モンスターコンプ",svg:`<svg viewBox="0 0 64 64" width="52" height="52"><polygon points="32,2 40,22 62,22 46,36 52,58 32,46 12,58 18,36 2,22 24,22" fill="#713f12"/><polygon points="32,8 38,24 56,24 44,34 48,54 32,44 16,54 20,34 8,24 26,24" fill="#92400e"/><circle cx="32" cy="30" r="10" fill="#b45309"/><circle cx="32" cy="30" r="6" fill="#eab308"/><circle cx="32" cy="29" r="2.5" fill="#fef9c3"/></svg>`},
 ];
 
 const QS={
   fraction:[
-    {q:"1/2 + 1/4 はいくつ？",choices:["1/6","3/4","2/6","1/3"],ans:1,exp:"分母をそろえると 2/4 + 1/4 = 3/4 だよ！"},
+    {q:"1/2 + 1/4 はいくつ？",choices:["1/6","3/4","2/6","1/3"],ans:1,exp:"分母をそろえると 2/4+1/4=3/4 だよ！"},
     {q:"3/5 - 1/5 はいくつ？",choices:["4/5","2/5","2/10","1/5"],ans:1,exp:"分母が同じとき分子を引くよ。3−1=2 → 2/5！"},
-    {q:"0.5 を分数にすると？",choices:["5/10","1/2","5/100","1/5"],ans:1,exp:"0.5 = 5/10 = 1/2。約分しよう！"},
-    {q:"2/3 + 1/6 はいくつ？",choices:["3/9","5/6","3/6","2/6"],ans:1,exp:"2/3 = 4/6 に直して 4/6 + 1/6 = 5/6！"},
-    {q:"1 - 3/8 はいくつ？",choices:["2/8","3/8","5/8","4/8"],ans:2,exp:"1 = 8/8 にして 8/8 − 3/8 = 5/8！"},
+    {q:"0.5 を分数にすると？",choices:["5/10","1/2","5/100","1/5"],ans:1,exp:"0.5=5/10=1/2。約分しよう！"},
+    {q:"2/3 + 1/6 はいくつ？",choices:["3/9","5/6","3/6","2/6"],ans:1,exp:"2/3=4/6に直して 4/6+1/6=5/6！"},
+    {q:"1 - 3/8 はいくつ？",choices:["2/8","3/8","5/8","4/8"],ans:2,exp:"1=8/8にして 8/8−3/8=5/8！"},
   ],
   shape:[
-    {q:"底辺6cm、高さ4cmの三角形の面積は？",choices:["24cm²","12cm²","20cm²","10cm²"],ans:1,exp:"三角形 = 底辺×高さ÷2 = 6×4÷2 = 12cm²！"},
-    {q:"たて5cm、横8cmの長方形の面積は？",choices:["26cm²","40cm²","13cm²","16cm²"],ans:1,exp:"長方形 = たて×横 = 5×8 = 40cm²！"},
-    {q:"1辺が7cmの正方形の面積は？",choices:["28cm²","14cm²","49cm²","42cm²"],ans:2,exp:"正方形 = 1辺×1辺 = 7×7 = 49cm²！"},
-    {q:"底辺10cm・高さ6cmの平行四辺形は？",choices:["32cm²","60cm²","16cm²","30cm²"],ans:1,exp:"平行四辺形 = 底辺×高さ = 10×6 = 60cm²！"},
-    {q:"面積18cm²、底辺9cmの三角形の高さは？",choices:["2cm","4cm","9cm","6cm"],ans:1,hint:"面積 = 底辺×高さ÷2 を使おう！",exp:"18 = 9×高さ÷2 → 高さ = 4cm！"},
+    {q:"底辺6cm、高さ4cmの三角形の面積は？",choices:["24cm²","12cm²","20cm²","10cm²"],ans:1,exp:"三角形=底辺×高さ÷2=6×4÷2=12cm²！"},
+    {q:"たて5cm、横8cmの長方形の面積は？",choices:["26cm²","40cm²","13cm²","16cm²"],ans:1,exp:"長方形=たて×横=5×8=40cm²！"},
+    {q:"1辺が7cmの正方形の面積は？",choices:["28cm²","14cm²","49cm²","42cm²"],ans:2,exp:"正方形=1辺×1辺=7×7=49cm²！"},
+    {q:"底辺10cm・高さ6cmの平行四辺形は？",choices:["32cm²","60cm²","16cm²","30cm²"],ans:1,exp:"平行四辺形=底辺×高さ=10×6=60cm²！"},
+    {q:"面積18cm²、底辺9cmの三角形の高さは？",choices:["2cm","4cm","9cm","6cm"],ans:1,hint:"面積=底辺×高さ÷2 を使おう！",exp:"18=9×高さ÷2 → 高さ=4cm！"},
   ],
   story:[
-    {q:"時速60kmで2時間走ると何km？",choices:["30km","120km","62km","90km"],ans:1,exp:"距離 = 速さ×時間 = 60×2 = 120km！"},
-    {q:"300円のノートが20%引きのとき？",choices:["60円","280円","240円","260円"],ans:2,exp:"20%引き = 80%。300×0.8 = 240円！"},
-    {q:"1周2kmを4周走ると何km？",choices:["6km","8km","4km","10km"],ans:1,exp:"2km×4周 = 8km！"},
-    {q:"全体の3/5が150人。全体は？",choices:["90人","250人","300人","200人"],ans:1,exp:"全体×3/5 = 150 → 150÷3/5 = 250人！"},
-    {q:"りんご3個+みかん5個=890円。りんごはみかんより30円高い。みかん1個は？",choices:["80円","95円","100円","110円"],ans:2,hint:"りんごをみかん+30円で考えよう",exp:"8×みかん + 90 = 890 → みかん = 100円！"},
+    {q:"時速60kmで2時間走ると何km？",choices:["30km","120km","62km","90km"],ans:1,exp:"距離=速さ×時間=60×2=120km！"},
+    {q:"300円のノートが20%引きのとき？",choices:["60円","280円","240円","260円"],ans:2,exp:"20%引き=80%。300×0.8=240円！"},
+    {q:"1周2kmを4周走ると何km？",choices:["6km","8km","4km","10km"],ans:1,exp:"2km×4周=8km！"},
+    {q:"全体の3/5が150人。全体は？",choices:["90人","250人","300人","200人"],ans:1,exp:"全体×3/5=150 → 150÷3/5=250人！"},
+    {q:"りんご3個+みかん5個=890円。りんごはみかんより30円高い。みかん1個は？",choices:["80円","95円","100円","110円"],ans:2,hint:"りんごをみかん+30円で考えよう",exp:"8×みかん+90=890 → みかん=100円！"},
   ],
   calc:[
-    {q:"123 × 45 = ？",choices:["5535","5445","5635","4500"],ans:0,exp:"123×40 + 123×5 = 4920 + 615 = 5535！"},
-    {q:"1008 ÷ 24 = ？",choices:["40","42","43","48"],ans:1,exp:"1008÷8÷3 = 126÷3 = 42！"},
-    {q:"2.5 × 1.4 = ？",choices:["3.0","3.5","2.8","3.2"],ans:1,exp:"25×14÷100 = 350÷100 = 3.5！"},
-    {q:"100 − 37 − 23 = ？",choices:["40","50","60","70"],ans:0,exp:"37+23=60、100−60 = 40！"},
-    {q:"48 ÷ 0.6 = ？",choices:["28.8","80","8","0.8"],ans:1,exp:"48×10÷6 = 480÷6 = 80！"},
+    {q:"123 × 45 = ？",choices:["5535","5445","5635","4500"],ans:0,exp:"123×40+123×5=4920+615=5535！"},
+    {q:"1008 ÷ 24 = ？",choices:["40","42","43","48"],ans:1,exp:"1008÷8÷3=126÷3=42！"},
+    {q:"2.5 × 1.4 = ？",choices:["3.0","3.5","2.8","3.2"],ans:1,exp:"25×14÷100=350÷100=3.5！"},
+    {q:"100 − 37 − 23 = ？",choices:["40","50","60","70"],ans:0,exp:"37+23=60、100−60=40！"},
+    {q:"48 ÷ 0.6 = ？",choices:["28.8","80","8","0.8"],ans:1,exp:"48×10÷6=480÷6=80！"},
   ],
 };
 
 const SNAME={fraction:"🍕 FRACTION",shape:"📐 GEOMETRY",story:"📝 WORD PROB",calc:"⚡ CALC"};
 const LBL=["Ａ","Ｂ","Ｃ","Ｄ"];
-let coins=120,streak=3,curSubj=null,qIdx=0,score=0,answered=false,curFilter="all";
+const ICONS=["🧒","👧","🧑"];
 
-document.getElementById('pArt').innerHTML=MONS[0].svg;
+let currentSlot=null,curSubj=null,qIdx=0,score=0,answered=false,curFilter="all";
+let calYear,calMonth;
+
+function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function loadSaves(){const r=localStorage.getItem('sq_saves');return r?JSON.parse(r):[null,null,null];}
+function saveSaves(s){localStorage.setItem('sq_saves',JSON.stringify(s));}
+function defaultSave(name){return{name,coins:0,streak:0,lastPlay:'',stampDates:[],ownedMons:[0],xp:0,lv:1,missions:{date:'',played:false,score3:false,perfect:false}};}
+
+function renderTitle(){
+  const saves=loadSaves();
+  document.getElementById('slotList').innerHTML=saves.map((s,i)=>{
+    if(!s)return`<div class="save-slot empty" onclick="openNewSlot(${i})"><div class="slot-icon">${ICONS[i]}</div><div class="slot-info"><div class="slot-new">⊕ あたらしい ぼうけんの書</div></div></div>`;
+    return`<div class="save-slot" onclick="loadSlot(${i})"><div class="slot-icon">${ICONS[i]}</div><div class="slot-info"><div class="slot-name">${s.name}</div><div class="slot-stats">🪙 ${s.coins}コイン　🔥 ${s.streak}連続<br>📖 ${s.ownedMons.length}/12モンスター　📅 ${s.stampDates.length}日スタンプ</div></div><div class="slot-del" onclick="event.stopPropagation();deleteSlot(${i})">けす</div></div>`;
+  }).join('');
+}
+
+let pendingSlot=null;
+function openNewSlot(i){pendingSlot=i;document.getElementById('nameInput').value='';document.getElementById('nameModal').style.display='flex';}
+function closeModal(){document.getElementById('nameModal').style.display='none';}
+function createSave(){
+  const name=document.getElementById('nameInput').value.trim()||'ぼうけんしゃ';
+  const saves=loadSaves();saves[pendingSlot]=defaultSave(name);saveSaves(saves);closeModal();loadSlot(pendingSlot);
+}
+function deleteSlot(i){if(!confirm('このぼうけんの書を消しますか？'))return;const saves=loadSaves();saves[i]=null;saveSaves(saves);renderTitle();}
+
+function loadSlot(i){
+  currentSlot=i;
+  const saves=loadSaves();const s=saves[i];
+  const today=todayStr();
+  if(s.lastPlay){const diff=Math.round((new Date(today)-new Date(s.lastPlay))/(1000*60*60*24));if(diff>1)s.streak=0;}
+  if(s.missions.date!==today)s.missions={date:today,played:false,score3:false,perfect:false};
+  saveSaves(saves);
+  document.getElementById('titleScreen').style.display='none';
+  document.getElementById('mainApp').style.display='block';
+  const now=new Date();calYear=now.getFullYear();calMonth=now.getMonth();
+  updateUI();
+}
+
+function getSave(){return loadSaves()[currentSlot];}
+function putSave(s){const saves=loadSaves();saves[currentSlot]=s;saveSaves(saves);}
+
+function updateUI(){
+  const s=getSave();
+  document.getElementById('strk').textContent=s.streak;
+  document.getElementById('cns').textContent=s.coins;
+  const xpMax=s.lv*100;
+  document.getElementById('xpLbl').textContent=`EXP ${s.xp}/${xpMax}`;
+  document.getElementById('xpBar').style.width=Math.round((s.xp/xpMax)*100)+'%';
+  document.getElementById('pLevel').textContent=`Lv.${s.lv} PARTNER`;
+  const partner=MONS[s.ownedMons[0]]||MONS[0];
+  document.getElementById('pArt').innerHTML=partner.svg;
+  document.getElementById('pName').textContent=partner.name;
+  const m=s.missions;
+  [[1,m.played],[2,m.score3],[3,m.perfect]].forEach(([n,done])=>{
+    document.getElementById('m'+n).className='m-item'+(done?' done':'');
+    document.getElementById('m'+n+'c').textContent=done?'✓':'';
+  });
+  renderCal();
+}
+
+function backToTitle(){document.getElementById('mainApp').style.display='none';document.getElementById('titleScreen').style.display='flex';renderTitle();}
 
 function goTab(id,btn){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  if(id==='zukan') renderZukan(curFilter);
+  document.getElementById(id).classList.add('active');btn.classList.add('active');
+  if(id==='zukan')renderZukan(curFilter);
 }
 
-function startBattle(subj){
-  curSubj=subj;qIdx=0;score=0;answered=false;
-  document.querySelectorAll('.tab')[1].click();
-  renderQ();
+function renderCal(){
+  const s=getSave();const stamps=new Set(s.stampDates||[]);const today=todayStr();
+  const y=calYear,m=calMonth;
+  const firstDay=new Date(y,m,1).getDay();const daysInMonth=new Date(y,m+1,0).getDate();
+  const mNames=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  document.getElementById('calTitle').textContent=`${y}年 ${mNames[m]}`;
+  let html=['日','月','火','水','木','金','土'].map(d=>`<div class="cal-day-label">${d}</div>`).join('');
+  for(let i=0;i<firstDay;i++)html+=`<div class="cal-day empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    html+=`<div class="cal-day${ds===today?' today':''}${stamps.has(ds)?' stamped':''}">${d}</div>`;
+  }
+  document.getElementById('calGrid').innerHTML=html;
 }
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();}
+
+function startBattle(subj){curSubj=subj;qIdx=0;score=0;answered=false;document.querySelectorAll('.tab')[1].click();renderQ();}
 
 function renderQ(){
-  const qs=QS[curSubj];
-  if(qIdx>=qs.length){showResult();return;}
-  const q=qs[qIdx];
+  const qs=QS[curSubj];if(qIdx>=qs.length){showResult();return;}const q=qs[qIdx];
   document.getElementById('qzContent').innerHTML=`
-    <div class="qz-top">
-      <button class="back-btn" onclick="goHome()">← もどる</button>
-      <div class="qz-name">${SNAME[curSubj]} BATTLE</div>
-    </div>
+    <div class="qz-top"><button class="back-btn" onclick="goHome()">← もどる</button><div class="qz-name">${SNAME[curSubj]} BATTLE</div></div>
     <div class="prog-outer"><div class="prog-inner" style="width:${Math.round((qIdx/qs.length)*100)}%"></div></div>
     <div class="prog-txt">QUESTION ${qIdx+1} / ${qs.length}</div>
-    <div class="q-block">
-      <div class="q-tag">Q.${qIdx+1}</div>
-      <div class="q-text">${q.q}</div>
-      ${q.hint?`<div class="q-hint" id="hintBox">💡 ${q.hint}</div>`:''}
-    </div>
+    <div class="q-block"><div class="q-tag">Q.${qIdx+1}</div><div class="q-text">${q.q}</div>${q.hint?`<div class="q-hint" id="hintBox">💡 ${q.hint}</div>`:''}</div>
     ${q.hint?`<button class="hint-btn" onclick="document.getElementById('hintBox').style.display='block';this.style.display='none';">💡 ヒントを見る</button>`:''}
     <div class="choices">${q.choices.map((c,i)=>`<button class="choice" id="ch${i}" onclick="doAns(${i})"><span class="ch-lbl">${LBL[i]}</span>${c}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>
-    <button class="next-btn" id="nxt" onclick="nextQ()">${qIdx+1<qs.length?'つぎへ →':'けっかを見る 🏆'}</button>
-  `;
+    <button class="next-btn" id="nxt" onclick="nextQ()">${qIdx+1<qs.length?'つぎへ →':'けっかを見る 🏆'}</button>`;
   answered=false;
 }
 
 function doAns(idx){
-  if(answered)return;
-  answered=true;
-  const q=QS[curSubj][qIdx];
-  const ok=idx===q.ans;
-  if(ok){score++;coins+=10;streak++;document.getElementById('cns').textContent=coins;document.getElementById('strk').textContent=streak;}
-  else{streak=Math.max(0,streak-1);document.getElementById('strk').textContent=streak;}
-  document.querySelectorAll('.choice').forEach((b,i)=>{
-    b.disabled=true;
-    if(i===q.ans)b.classList.add('correct');
-    else if(i===idx&&!ok)b.classList.add('wrong');
-  });
-  const fb=document.getElementById('fb');
-  fb.className='feedback '+(ok?'correct':'wrong');
-  fb.style.display='block';
+  if(answered)return;answered=true;
+  const q=QS[curSubj][qIdx];const ok=idx===q.ans;if(ok)score++;
+  document.querySelectorAll('.choice').forEach((b,i)=>{b.disabled=true;if(i===q.ans)b.classList.add('correct');else if(i===idx&&!ok)b.classList.add('wrong');});
+  const fb=document.getElementById('fb');fb.className='feedback '+(ok?'correct':'wrong');fb.style.display='block';
   fb.innerHTML=`<div class="fb-top"><div class="fb-ico">${ok?'⭕':'❌'}</div><div class="fb-ttl">${ok?'せいかい！すごい！':'ざんねん…'}</div></div><div class="fb-exp">${q.exp}</div>`;
   document.getElementById('nxt').style.display='block';
 }
-
 function nextQ(){qIdx++;renderQ();}
 
 function showResult(){
   const total=QS[curSubj].length;
   const stars=score>=total?'⭐⭐⭐':score>=Math.ceil(total*0.6)?'⭐⭐':'⭐';
   const msg=score===total?'パーフェクト！全問正解だ！🎉':score>=3?'よくできました！もう少しで完璧！':'つぎはがんばろう！💪';
-  const icon=MONS.find(m=>m.subj===curSubj&&m.owned)||MONS[0];
+  const s=getSave();const today=todayStr();
+  s.coins+=score*10;s.xp+=score*15;
+  const xpMax=s.lv*100;if(s.xp>=xpMax){s.xp-=xpMax;s.lv++;}
+  let gotStamp=false;
+  if(!s.stampDates.includes(today)){
+    s.stampDates.push(today);gotStamp=true;
+    const last=s.lastPlay?new Date(s.lastPlay):null;
+    const now=new Date(today);
+    if(last){const diff=Math.round((now-last)/(1000*60*60*24));s.streak=diff===1?s.streak+1:1;}else{s.streak=1;}
+  }
+  s.lastPlay=today;
+  if(!s.missions.played)s.missions.played=true;
+  if(score>=3&&!s.missions.score3)s.missions.score3=true;
+  if(score===total&&!s.missions.perfect)s.missions.perfect=true;
+  let newMon=null;
+  if(score>=3){const u=MONS.filter(m=>m.subj===curSubj&&!s.ownedMons.includes(m.id));if(u.length>0){newMon=u[0];s.ownedMons.push(newMon.id);}}
+  putSave(s);updateUI();
+  const icon=MONS[s.ownedMons[s.ownedMons.length-1]]||MONS[0];
   document.getElementById('qzContent').innerHTML=`
     <div class="result-wrap">
       <div class="result-icon">${icon.svg}</div>
       <div class="result-score">${score}/${total}</div>
       <div class="result-stars">${stars}</div>
       <div class="result-msg">${msg}</div>
-      <div class="result-gain">🪙 +${score*10}コイン ゲット！${score>=3?'<br>🎉 モンスターのかけら 入手！':''}</div>
+      <div class="result-gain">🪙 +${score*10}コイン！<br>✨ +${score*15} EXP！${newMon?`<br>🎉 ${newMon.name} をゲット！`:''}${gotStamp?'<br>📅 きょうのスタンプ ゲット！':''}</div>
       <button class="play-again" onclick="startBattle('${curSubj}')">🔄 もう一度バトル！</button>
       <button class="home-lnk" onclick="goHome()">🏠 ホームにもどる</button>
-    </div>
-  `;
+    </div>`;
 }
 
 function goHome(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('home').classList.add('active');
-  document.querySelectorAll('.tab')[0].classList.add('active');
+  document.getElementById('home').classList.add('active');document.querySelectorAll('.tab')[0].classList.add('active');updateUI();
 }
 
-function flt(f,el){
-  curFilter=f;
-  document.querySelectorAll('.flt').forEach(t=>t.classList.remove('on'));
-  el.classList.add('on');
-  renderZukan(f);
-}
+function flt(f,el){curFilter=f;document.querySelectorAll('.flt').forEach(t=>t.classList.remove('on'));el.classList.add('on');renderZukan(f);}
 
 function renderZukan(filter){
+  const s=getSave();
   const list=filter==='all'?MONS:MONS.filter(m=>m.subj===filter||m.subj==='all');
-  document.getElementById('zuGrid').innerHTML=list.map(m=>`
-    <div class="zu-card ${m.owned?'owned':'locked'}">
-      <div class="zu-art">${m.svg}</div>
-      <div class="zu-name">${m.owned?m.name:'???'}</div>
-      <div class="zu-type">${m.type}</div>
-      ${m.owned?`<div class="zu-lv">Lv.${m.lv}</div>`:`<div class="zu-lock">${m.unlock}</div>`}
-    </div>
-  `).join('');
+  document.getElementById('zuGrid').innerHTML=list.map(m=>{
+    const owned=s.ownedMons.includes(m.id);
+    return`<div class="zu-card ${owned?'owned':'locked'}"><div class="zu-art">${m.svg}</div><div class="zu-name">${owned?m.name:'???'}</div><div class="zu-type">${m.type}</div>${owned?`<div class="zu-lv">ゲット済み ✓</div>`:`<div class="zu-lock">${m.unlock}</div>`}</div>`;
+  }).join('');
 }
+
+renderTitle();
 </script>
 </body>
 </html>
